@@ -11,7 +11,7 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Ошибка валдиации', errors.array()));
       }
-      const {email, password} = req.body;
+      const { email, password } = req.body;
       const userData = await userService.registration(email, password);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: MONTH,
@@ -25,7 +25,13 @@ class UserController {
   
   async login(req, res, next){
     try {
-    
+      const { email, password } = req.body;
+      const userData = await userService.login(email, password);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: MONTH,
+        httpOnly: true,
+      });
+      return res.json(userData);
     } catch (e) {
       next(e);
     }

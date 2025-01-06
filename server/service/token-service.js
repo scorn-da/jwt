@@ -23,7 +23,11 @@ class TokenService {
         data: {
           refreshToken,
         },
+        where: {
+          userId,
+        },
       });
+      return tokenData;
     }
     const token = await prisma.token.create({
       data: {
