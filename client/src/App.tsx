@@ -1,9 +1,10 @@
 import './App.css'
+import LoginForm from "./components/LoginForm.tsx";
 
 function App() {
   return (
     <>
-      123434
+      <LoginForm />
     </>
   )
 }
