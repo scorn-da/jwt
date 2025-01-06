@@ -96,7 +96,7 @@ class UserService {
     }
     const user = await prisma.user.findUnique({
       where: {
-        userId: userData.id,
+        id: userData.id,
       }
     });
     const userDto = new UserDto(user);

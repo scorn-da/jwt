@@ -61,7 +61,7 @@ class UserController {
   async refresh(req, res, next){
     try {
       const { refreshToken } = req.cookies;
-      const userData = await userService.refresh(email, password);
+      const userData = await userService.refresh(refreshToken);
       res.cookie('refreshToken', userData.refreshToken, {
         maxAge: MONTH,
         httpOnly: true,
