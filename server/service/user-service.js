@@ -108,6 +108,11 @@ class UserService {
       user: userDto,
     };
   }
+  
+  async getAllUsers() {
+    const users = await prisma.user.findMany();
+    return users;
+  }
 }
 
 module.exports = new UserService();
