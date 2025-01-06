@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const router = require('./router/index');
 const { PrismaClient } = require("@prisma/client");
+const errorMiddleware = require('./middlewares/error-middleware');
 
 const prisma = new PrismaClient
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use('/api', router);
+app.use(errorMiddleware);
 
 const start = async () => {
   try {
