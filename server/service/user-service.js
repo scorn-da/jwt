@@ -14,7 +14,7 @@ class UserService {
         }
       });
       if (candidate) {
-        throw new Error(`Пользователь с почтовым адресом ${email} уже существует`);
+        throw new Error(`Пользователь с почтовым адресом ${email} уже существует, ${new Date()}`);
       }
       const hashedPassword = await bcrypt.hash(password, 3);
       const activationLinkId = uuid.v4();
@@ -26,10 +26,9 @@ class UserService {
           activationLink: activationLinkId,
         },
       });
-      await mailService.sendActivationMail(email, activationLinkId);
+      await mailService.sendActivationMail(email, `${process.env.API_URL}/api/activate/${activationLinkId}`);
       
       const userDto = new UserDto(user);
-      console.log(userDto);
       const tokens = tokenService.generateTokens({ ...userDto });
       await tokenService.saveToken(userDto.id, tokens.refreshToken);
       
